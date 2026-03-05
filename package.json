@@ -1,16 +1,13 @@
 {
   "name": "maki-chatboot",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Chatbot de Maki Agencia Creativa",
+  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
   },
-  "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "commonjs",
   "dependencies": {
     "axios": "^1.13.5",
     "dotenv": "^17.3.1",
