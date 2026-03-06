@@ -101,8 +101,7 @@ continue;
 }
 
 
-// DETECTAR SERVICIO POR TEXTO
-
+// SOLO DETECTAR SERVICIOS SI EL USUARIO NO ESTÁ EN UN SERVICIO
 if (estadoUsuario[sender] !== "servicio") {
 
 if (
@@ -473,3 +472,4 @@ console.log("BOT MAKI CREATIVA FUNCIONANDO 🚀");
 
 
 });
+
