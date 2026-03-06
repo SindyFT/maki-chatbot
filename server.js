@@ -71,6 +71,26 @@ lastUserMessage[sender] = mensaje;
 console.log("Mensaje recibido:", mensaje);
 
 
+// CLIENTE ENVIANDO DATOS
+if (estadoUsuario[sender] === "esperando_info") {
+
+await guardarCliente(sender, mensaje);
+
+estadoUsuario[sender] = null;
+
+await enviarTexto(sender,
+`✅ Muchas gracias por la información.
+
+Nuestro equipo revisará tu mensaje y un asesor se pondrá en contacto contigo lo antes posible.
+
+✨ Gracias por confiar en Maki Creativa.`
+);
+
+continue;
+
+}
+
+
 // SALUDO INTELIGENTE
 if (
 (
@@ -101,8 +121,7 @@ continue;
 }
 
 
-
-// SOLO DETECTAR SERVICIOS SI EL USUARIO NO ESTÁ EN UN FLUJO
+// DETECTAR SERVICIOS
 if (!estadoUsuario[sender] || estadoUsuario[sender] === "menu") {
 
 if (
@@ -155,6 +174,7 @@ mensaje = "WEB";
 }
 
 }
+
 
 // SERVICIOS
 
@@ -264,9 +284,6 @@ await enviarTexto(sender,
 
 • Tarjetas de presentación
 • Afiches
-• Etiquetas
-• Stickers
-• Trípticos
 • volantes
 • Revistas
 • Banners y más...
@@ -336,28 +353,6 @@ Para cotizar tu propuesta necesitamos:
 );
 
 await menuFinal(sender);
-
-continue;
-
-}
-
-console.log("Mensaje recibido:", mensaje);
-
-// RESPUESTA CUANDO EL CLIENTE ENVÍA DATOS
-
-if (estadoUsuario[sender] === "esperando_info") {
-
-await guardarCliente(sender, mensaje);
-
-estadoUsuario[sender] = null;
-
-await enviarTexto(sender,
-`✅ Muchas gracias por la información.
-
-Nuestro equipo revisará tu mensaje y un asesor se pondrá en contacto contigo lo antes posible.
-
-✨ Gracias por confiar en Maki Creativa.`
-);
 
 continue;
 
@@ -444,7 +439,6 @@ quick_replies:[
 }
 
 
-
 // MENÚ FINAL
 async function menuFinal(sender){
 
@@ -466,11 +460,8 @@ quick_replies:[
 }
 
 
-
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT,()=>{
 console.log("BOT MAKI CREATIVA FUNCIONANDO 🚀");
 });
-
-
