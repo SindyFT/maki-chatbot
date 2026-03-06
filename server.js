@@ -102,7 +102,7 @@ continue;
 
 
 // SOLO DETECTAR SERVICIOS SI EL USUARIO NO ESTÁ EN UN SERVICIO
-if (estadoUsuario[sender] !== "servicio") {
+if (!estadoUsuario[sender]) {
 
 if (
 mensaje.includes("logo") ||
@@ -466,10 +466,9 @@ quick_replies:[
 
 
 
-app.listen(3000,()=>{
+const PORT = process.env.PORT || 3000;
 
+app.listen(PORT,()=>{
 console.log("BOT MAKI CREATIVA FUNCIONANDO 🚀");
-
-
 });
 
