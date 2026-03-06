@@ -103,6 +103,8 @@ continue;
 
 // DETECTAR SERVICIO POR TEXTO
 
+if (estadoUsuario[sender] !== "servicio") {
+
 if (
 mensaje.includes("logo") ||
 mensaje.includes("logotipo") ||
@@ -112,7 +114,7 @@ mensaje.includes("logos")
 mensaje = "DISENO";
 }
 
-if (
+else if (
 mensaje.includes("video") ||
 mensaje.includes("foto") ||
 mensaje.includes("boda")
@@ -120,7 +122,7 @@ mensaje.includes("boda")
 mensaje = "AUDIOVISUAL";
 }
 
-if (
+else if (
 mensaje.includes("rotulo") ||
 mensaje.includes("rotulación") ||
 mensaje.includes("lona")
@@ -128,7 +130,7 @@ mensaje.includes("lona")
 mensaje = "ROTULACION";
 }
 
-if (
+else if (
 mensaje.includes("impresion") ||
 mensaje.includes("tarjetas") ||
 mensaje.includes("afiches")
@@ -136,7 +138,7 @@ mensaje.includes("afiches")
 mensaje = "IMPRESION";
 }
 
-if (
+else if (
 mensaje.includes("laser") ||
 mensaje.includes("acrilico") ||
 mensaje.includes("mdf")
@@ -144,7 +146,7 @@ mensaje.includes("mdf")
 mensaje = "LASER";
 }
 
-if (
+else if (
 mensaje.includes("pagina") ||
 mensaje.includes("web") ||
 mensaje.includes("sitio web")
@@ -152,6 +154,7 @@ mensaje.includes("sitio web")
 mensaje = "WEB";
 }
 
+}
 
 // SERVICIOS
 
@@ -467,5 +470,6 @@ quick_replies:[
 app.listen(3000,()=>{
 
 console.log("BOT MAKI CREATIVA FUNCIONANDO 🚀");
+
 
 });
