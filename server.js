@@ -101,8 +101,9 @@ continue;
 }
 
 
-// SOLO DETECTAR SERVICIOS SI EL USUARIO NO ESTÁ EN UN SERVICIO
-if (!estadoUsuario[sender]) {
+
+// SOLO DETECTAR SERVICIOS SI EL USUARIO NO ESTÁ EN UN FLUJO
+if (!estadoUsuario[sender] || estadoUsuario[sender] === "menu") {
 
 if (
 mensaje.includes("logo") ||
@@ -340,7 +341,7 @@ continue;
 
 }
 
-
+console.log("Mensaje recibido:", mensaje);
 
 // RESPUESTA CUANDO EL CLIENTE ENVÍA DATOS
 
@@ -471,4 +472,5 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT,()=>{
 console.log("BOT MAKI CREATIVA FUNCIONANDO 🚀");
 });
+
 
