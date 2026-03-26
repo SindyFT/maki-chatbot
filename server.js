@@ -65,18 +65,38 @@ mensaje = event.postback.payload;
 
 // evitar duplicados
 if (lastUserMessage[sender] === mensaje) continue;
-
 lastUserMessage[sender] = mensaje;
 
 console.log("Mensaje recibido:", mensaje);
 
 
+// =========================
+// RESPUESTA MENÚ FINAL
+// =========================
+if (estadoUsuario[sender] === "menu_final") {
+
+  if (mensaje === "menu") {
+    estadoUsuario[sender] = "menu";
+    await menuPrincipal(sender);
+    continue;
+  }
+
+  if (mensaje === "ASESOR") {
+    estadoUsuario[sender] = "asesor";
+    await enviarTexto(sender, "👨‍💼 Un asesor se comunicará contigo en breve.");
+    continue;
+  }
+}
+
+
+// =========================
 // CLIENTE ENVIANDO DATOS
+// =========================
 if (estadoUsuario[sender] === "esperando_info") {
 
 await guardarCliente(sender, mensaje);
 
-estadoUsuario[sender] = null;
+estadoUsuario[sender] = "finalizado";
 
 await enviarTexto(sender,
 `✅ Muchas gracias por la información.
@@ -86,12 +106,14 @@ Nuestro equipo revisará tu mensaje y un asesor se pondrá en contacto contigo l
 ✨ Gracias por confiar en Maki Creativa.`
 );
 
+await menuFinal(sender);
 continue;
-
 }
 
 
+// =========================
 // SALUDO INTELIGENTE
+// =========================
 if (
 (
 mensaje.includes("hola") ||
@@ -121,8 +143,10 @@ continue;
 }
 
 
+// =========================
 // DETECTAR SERVICIOS
-if (!estadoUsuario[sender] || estadoUsuario[sender] === "menu") {
+// =========================
+if (estadoUsuario[sender] === "menu") {
 
 if (
 mensaje.includes("logo") ||
@@ -176,7 +200,9 @@ mensaje = "WEB";
 }
 
 
+// =========================
 // SERVICIOS
+// =========================
 
 if (mensaje === "DISENO") {
 
@@ -204,11 +230,8 @@ Para cotizar necesitamos:
 );
 
 await menuFinal(sender);
-
 continue;
-
 }
-
 
 
 if (mensaje === "AUDIOVISUAL") {
@@ -235,11 +258,8 @@ Para verificar disponibilidad necesitamos:
 );
 
 await menuFinal(sender);
-
 continue;
-
 }
-
 
 
 if (mensaje === "ROTULACION") {
@@ -267,11 +287,8 @@ Para cotizar necesitamos:
 );
 
 await menuFinal(sender);
-
 continue;
-
 }
-
 
 
 if (mensaje === "IMPRESION") {
@@ -296,11 +313,8 @@ Envíanos la cantidad para cotizar.`
 );
 
 await menuFinal(sender);
-
 continue;
-
 }
-
 
 
 if (mensaje === "LASER") {
@@ -325,11 +339,8 @@ Si es en cantidad el precio baja.
 );
 
 await menuFinal(sender);
-
 continue;
-
 }
-
 
 
 if (mensaje === "WEB") {
@@ -353,9 +364,7 @@ Para cotizar tu propuesta necesitamos:
 );
 
 await menuFinal(sender);
-
 continue;
-
 }
 
 }
@@ -441,6 +450,8 @@ quick_replies:[
 
 // MENÚ FINAL
 async function menuFinal(sender){
+
+estadoUsuario[sender] = "menu_final";
 
 await axios.post(
 "https://graph.facebook.com/v18.0/me/messages",
